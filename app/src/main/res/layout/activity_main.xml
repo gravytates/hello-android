@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        android:text="Food n such!"
+        android:text="Food!"
         android:textColor="@color/primary"
         android:textSize="40sp"
         android:textStyle="bold" />
