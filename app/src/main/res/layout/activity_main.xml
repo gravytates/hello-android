@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/background" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,14 +20,18 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:text="Food n such!"
-        android:textColor="@color/icons" />
+        android:textColor="@color/primary"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:id="@+id/findFoodButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="126dp"
-        android:text="Find Food" />
+        android:backgroundTint="@color/accent"
+        android:text="Find Food"
+        android:textColor="#FFFFFF" />
 </RelativeLayout>
