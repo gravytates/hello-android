@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 String food = mFoodEditText.getText().toString();
                 Log.d(TAG, food);
                 Intent intent = new Intent(MainActivity.this, FoodActivity.class);
+                intent.putExtra("food", food);
                 startActivity(intent);
             }
         });

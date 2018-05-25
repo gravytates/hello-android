@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".FoodActivity">
 
+    <TextView
+        android:id="@+id/foodTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Food suggestions for "
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="1dp" />
+
 </android.support.constraint.ConstraintLayout>
