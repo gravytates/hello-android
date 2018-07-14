@@ -1,5 +1,6 @@
 package com.gradyshelton.foodnsuch
 
+import android.app.Application
 import android.content.Intent
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
@@ -9,7 +10,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
+
+import io.realm.Realm
+import io.realm.RealmConfiguration
 
 class MainActivity : AppCompatActivity() {
     private var mFindFoodButton: Button? = null
@@ -17,6 +20,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Realm.init(this)
+        val realmConfig = RealmConfiguration.Builder()
+                .name("foodnsuch.realm")
+                .schemaVersion(0)
+                .build();
+        Realm.setDefaultConfiguration(realmConfig)
+
         setContentView(R.layout.activity_main)
         val fontPath = "fonts/Roboto-ThinItalic.ttf"
         val mAppNameTextView = findViewById<View>(R.id.appNameTextView) as TextView

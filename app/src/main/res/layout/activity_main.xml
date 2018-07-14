@@ -47,4 +47,12 @@
         android:hint="Enter Noms"
         android:inputType="textPersonName"
         android:padding="5dp" />
+
+    <ListView
+        android:id="@+id/ingredientList"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="390dp"
+        android:background="#F8F8F8">"One"</ListView>
 </RelativeLayout>
