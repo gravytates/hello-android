@@ -13,7 +13,7 @@ import io.realm.RealmBaseAdapter
 
 class IngredientAdapter internal constructor(data: OrderedRealmCollection<Ingredient>) : RealmBaseAdapter<Ingredient>(data), ListAdapter {
 
-    private val IngredientListActivity IngredientListActivity::class.java.simpleName
+//    private val IngredientListActivity IngredientListActivity::class.java.simpleName
 
     private class ViewHolder {
         internal var ingredientName: TextView? = null
@@ -34,7 +34,7 @@ class IngredientAdapter internal constructor(data: OrderedRealmCollection<Ingred
 
         if (adapterData != null) {
             val ingredient = adapterData!![position]
-            viewHolder.ingredientName.setText(ingredient.name)
+            viewHolder.ingredientName!!.setText(ingredient.name)
         }
 
         return convertView
