@@ -10,9 +10,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.gradyshelton.foodnsuch.model.realm.Ingredient
 
 import io.realm.Realm
+import io.realm.RealmChangeListener
 import io.realm.RealmConfiguration
+import io.realm.kotlin.where
 
 class MainActivity : AppCompatActivity() {
     private var mFindFoodButton: Button? = null
@@ -25,8 +28,14 @@ class MainActivity : AppCompatActivity() {
         val realmConfig = RealmConfiguration.Builder()
                 .name("foodnsuch.realm")
                 .schemaVersion(0)
-                .build();
+                .build()
         Realm.setDefaultConfiguration(realmConfig)
+
+        val realm = Realm.getDefaultInstance()
+        var results = realm.where<Ingredient>().findAllAsync()
+        results.addChangeListener(RealmChangeListener { element ->
+
+            })
 
         setContentView(R.layout.activity_main)
         val fontPath = "fonts/Roboto-ThinItalic.ttf"

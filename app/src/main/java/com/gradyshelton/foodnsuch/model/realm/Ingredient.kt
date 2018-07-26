@@ -7,9 +7,9 @@ import io.realm.annotations.Required
 open class Ingredient : RealmObject {
     @PrimaryKey
     @Required
-    var id: String = ""
+    var id: String? = null
     @Required
-    var name: String = ""
-    var price: Double = 0.0
+    var name: String? = null
+    var price: Double? = null
     constructor()
 }
