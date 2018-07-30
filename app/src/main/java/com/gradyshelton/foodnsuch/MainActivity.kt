@@ -15,9 +15,14 @@ import com.gradyshelton.foodnsuch.model.realm.Ingredient
 import io.realm.Realm
 import io.realm.RealmChangeListener
 import io.realm.RealmConfiguration
+import io.realm.RealmResults
 import io.realm.kotlin.where
 
+const val EXTRA_MESSAGE = "com.gradyshelton.foodnsuch.MESSAGE"
+
 class MainActivity : AppCompatActivity() {
+    var realm : Realm? = null
+    var results: RealmResults<Ingredient>? = null
     private var mFindFoodButton: Button? = null
     private var mFoodEditText: EditText? = null
 
@@ -49,14 +54,24 @@ class MainActivity : AppCompatActivity() {
             val food = mFoodEditText!!.text.toString()
             Log.d(TAG, food)
             val intent = Intent(this@MainActivity, FoodActivity::class.java)
-            intent.putExtra("food", food)
+            intent.putExtra(EXTRA_MESSAGE, food)
             startActivity(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        results?.removeAllChangeListeners()
+        results = null
+        realm?.close()
+        realm = null
     }
 
     companion object {
         val TAG = MainActivity::class.java!!.getSimpleName()
     }
+
 }
+
 
 
