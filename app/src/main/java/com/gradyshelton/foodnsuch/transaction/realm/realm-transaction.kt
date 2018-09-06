@@ -14,7 +14,6 @@ open class IngredientTransaction : Transaction {
                     name = "salt"
                     price = 1.5
                 })
-
             }
         }
     }
