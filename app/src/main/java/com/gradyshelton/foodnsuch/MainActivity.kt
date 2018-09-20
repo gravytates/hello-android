@@ -17,6 +17,8 @@ import io.realm.RealmChangeListener
 import io.realm.RealmConfiguration
 import io.realm.RealmResults
 import io.realm.kotlin.where
+//import sun.misc.MessageUtils.where
+
 
 const val EXTRA_MESSAGE = "com.gradyshelton.foodnsuch.MESSAGE"
 
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     var results: RealmResults<Ingredient>? = null
     private var mFindFoodButton: Button? = null
     private var mFoodEditText: EditText? = null
+
+    private var starterIngredients: MutableList<String> = mutableListOf("Avocado", "Garlic", "Lime", "Salt", "Pepper", "Onion", "Chicken", "Beef", "Cheese", "Red Wine", "Basil", "Whiskey", "Potato", "Tomato", "Lettuce")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +39,22 @@ class MainActivity : AppCompatActivity() {
                 .schemaVersion(0)
                 .build()
         Realm.setDefaultConfiguration(realmConfig)
-//        realm.beginTransaction()
-//        val ingredient: Ingredient = realm.createObject(Ingredient::class.java)
-//        ingredient.name = "salt"
-//        ingredient.id = "1"
-//        ingredient.price = 1.5
+        val realm: Realm? = Realm.getDefaultInstance()
+
+        for (i in starterIngredients) {
+            var id: Int? = realm?.where(Ingredient::class.java)?.max("id")?.toInt()
+            if (id != null) {
+                id++
+            } else {
+                id = 1
+            }
+            realm?.executeTransaction(){
+                val ingredient: Ingredient = realm.createObject(Ingredient::class.java, id)
+                ingredient.name = i
+                ingredient.price = 1.5
+            }
+        }
+
 
         setContentView(R.layout.activity_main)
         val fontPath = "fonts/Roboto-ThinItalic.ttf"
@@ -52,6 +67,21 @@ class MainActivity : AppCompatActivity() {
         mFindFoodButton!!.setOnClickListener {
             val inputFood = mFoodEditText!!.text.toString()
             Log.d(TAG, inputFood)
+
+            if (inputFood != "") {
+                val id: Int? = realm?.where(Ingredient::class.java)?.max("id")?.toInt()
+                Log.d(TAG, "id: $id")
+                //hacky id incrementing
+                var idA = 0
+                if (id != null) { idA = id }
+                idA++
+
+                realm?.executeTransaction(){
+                    val ingredient: Ingredient = realm.createObject(Ingredient::class.java, idA)
+                    ingredient.name = inputFood
+                    ingredient.price = 1.5
+                }
+            }
 
             val intent = Intent(this@MainActivity, FoodActivity::class.java)
             intent.putExtra(EXTRA_MESSAGE, inputFood)

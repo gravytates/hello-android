@@ -10,7 +10,7 @@ open class IngredientTransaction : Transaction {
         Realm.getDefaultInstance().use { r ->
             r.executeTransaction { realm ->
                 realm.copyToRealmOrUpdate(Ingredient().apply {
-                    id = "1"
+                    id = 1
                     name = "salt"
                     price = 1.5
                 })
