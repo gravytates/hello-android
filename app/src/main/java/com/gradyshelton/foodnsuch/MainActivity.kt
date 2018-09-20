@@ -35,12 +35,11 @@ class MainActivity : AppCompatActivity() {
                 .schemaVersion(0)
                 .build()
         Realm.setDefaultConfiguration(realmConfig)
-
-        val realm = Realm.getDefaultInstance()
-        var results = realm.where<Ingredient>().findAllAsync()
-        results.addChangeListener(RealmChangeListener { element ->
-
-            })
+//        realm.beginTransaction()
+//        val ingredient: Ingredient = realm.createObject(Ingredient::class.java)
+//        ingredient.name = "salt"
+//        ingredient.id = "1"
+//        ingredient.price = 1.5
 
         setContentView(R.layout.activity_main)
         val fontPath = "fonts/Roboto-ThinItalic.ttf"
@@ -51,10 +50,11 @@ class MainActivity : AppCompatActivity() {
         mFindFoodButton = findViewById<View>(R.id.findFoodButton) as Button
         mFoodEditText = findViewById<View>(R.id.foodEditText) as EditText
         mFindFoodButton!!.setOnClickListener {
-            val food = mFoodEditText!!.text.toString()
-            Log.d(TAG, food)
+            val inputFood = mFoodEditText!!.text.toString()
+            Log.d(TAG, inputFood)
+
             val intent = Intent(this@MainActivity, FoodActivity::class.java)
-            intent.putExtra(EXTRA_MESSAGE, food)
+            intent.putExtra(EXTRA_MESSAGE, inputFood)
             startActivity(intent)
         }
     }
@@ -72,6 +72,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-
-
 
