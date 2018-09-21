@@ -24,16 +24,15 @@ class FoodActivity : AppCompatActivity() {
         Toast.makeText( this@FoodActivity, "$addedIngredient added", Toast.LENGTH_LONG).show()
 
         val realmIngredients = realm.where<Ingredient>().findAllAsync()
-        val ingredientNames: MutableList<String>? = null
-        for (i in realmIngredients) {
-            ingredientNames?.add(i.name.toString())
-        }
-        val nonNullIngredientNames = ingredientNames
-        if (nonNullIngredientNames != null) {
+        val ingredientNames: MutableList<String> = mutableListOf()
 
-            val adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, nonNullIngredientNames)
-            mIngredientListView.setAdapter(adapter)
+        for (ingredient in realmIngredients) {
+            ingredientNames.add(ingredient.name.toString())
         }
+        Log.d(TAG, "ingredientList: $ingredientNames")
+
+        val adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientNames)
+        mIngredientListView.setAdapter(adapter)
 
         mIngredientListView.setOnItemClickListener(object : AdapterView.OnItemClickListener {
             override fun onItemClick(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
