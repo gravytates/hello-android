@@ -3,4 +3,5 @@
     <string name="food_suggestions_for">Food suggestions for </string>
     <string name="find_food_btn">Find Food</string>
     <string name="edit_text_hint">Enter Noms</string>
+    <string name="setPrice">$0.00</string>
 </resources>

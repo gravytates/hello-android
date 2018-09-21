@@ -12,7 +12,7 @@ import android.widget.AdapterView
 import com.gradyshelton.foodnsuch.model.realm.Ingredient
 import io.realm.Realm
 import io.realm.kotlin.where
-//UGLY UGLY UGLY
+
 class FoodActivity : AppCompatActivity() {
     private var mFoodTextView: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,14 +24,16 @@ class FoodActivity : AppCompatActivity() {
         Toast.makeText( this@FoodActivity, "$addedIngredient added", Toast.LENGTH_LONG).show()
 
         val realmIngredients = realm.where<Ingredient>().findAllAsync()
-        val ingredientNames: MutableList<String> = mutableListOf()
+        val ingredientArray: MutableList<String> = mutableListOf()
 
         for (ingredient in realmIngredients) {
-            ingredientNames.add(ingredient.name.toString())
+            val name = ingredient.name.toString()
+            val price = ingredient.price.toString()
+            ingredientArray.add("$name: $$price")
         }
-        Log.d(TAG, "ingredientList: $ingredientNames")
+        Log.d(TAG, "ingredientList: $realmIngredients")
 
-        val adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientNames)
+        val adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientArray)
         mIngredientListView.setAdapter(adapter)
 
         mIngredientListView.setOnItemClickListener(object : AdapterView.OnItemClickListener {
@@ -43,6 +45,6 @@ class FoodActivity : AppCompatActivity() {
     }
 
     companion object {
-        val TAG = MainActivity::class.java!!.getSimpleName()
+        val TAG = MainActivity::class.java.getSimpleName()
     }
 }

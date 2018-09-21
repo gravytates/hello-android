@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     var results: RealmResults<Ingredient>? = null
     private var mFindFoodButton: Button? = null
     private var mFoodEditText: EditText? = null
+    private var mPriceEditText: EditText? = null
 
     private var starterIngredients: MutableList<String> = mutableListOf("Avocado", "Garlic", "Lime", "Salt", "Pepper", "Onion", "Chicken", "Beef", "Cheese", "Red Wine", "Basil", "Whiskey", "Potato", "Tomato", "Lettuce")
 
@@ -64,22 +65,25 @@ class MainActivity : AppCompatActivity() {
 
         mFindFoodButton = findViewById<View>(R.id.findFoodButton) as Button
         mFoodEditText = findViewById<View>(R.id.foodEditText) as EditText
+        mPriceEditText = findViewById<View>(R.id.priceEditText) as EditText
         mFindFoodButton!!.setOnClickListener {
             val inputFood = mFoodEditText!!.text.toString()
-            Log.d(TAG, inputFood)
+            val inputPrice: Double? = (mPriceEditText!!.text.toString()).toDoubleOrNull()
 
             if (inputFood != "") {
-                val id: Int? = realm?.where(Ingredient::class.java)?.max("id")?.toInt()
-                Log.d(TAG, "id: $id")
+                //set price
+                var price = if (inputPrice != null) { inputPrice } else { 1.5 }
                 //hacky id incrementing
+                val id: Int? = realm?.where(Ingredient::class.java)?.max("id")?.toInt()
                 var idA = 0
                 if (id != null) { idA = id }
                 idA++
+                Log.d(TAG, "id: $id")
 
                 realm?.executeTransaction(){
                     val ingredient: Ingredient = realm.createObject(Ingredient::class.java, idA)
                     ingredient.name = inputFood
-                    ingredient.price = 1.5
+                    ingredient.price = price
                 }
             }
 
@@ -98,7 +102,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        val TAG = MainActivity::class.java!!.getSimpleName()
+        val TAG = MainActivity::class.java.getSimpleName()
     }
 
 }
