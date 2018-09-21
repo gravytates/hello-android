@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
             if (inputFood != "") {
                 //set price
-                var price = if (inputPrice != null) { inputPrice } else { 1.5 }
+                val price = if (inputPrice != null) { inputPrice } else { 1.5 }
                 //hacky id incrementing
                 val id: Int? = realm?.where(Ingredient::class.java)?.max("id")?.toInt()
                 var idA = 0
@@ -90,6 +90,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, FoodActivity::class.java)
             intent.putExtra(EXTRA_MESSAGE, inputFood)
             startActivity(intent)
+
+            //clear edit text box
+            mFoodEditText?.getText()?.clear()
+            mPriceEditText?.getText()?.clear()
         }
     }
 

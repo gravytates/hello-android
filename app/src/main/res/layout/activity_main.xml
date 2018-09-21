@@ -50,12 +50,14 @@
 
     <EditText
         android:id="@+id/priceEditText"
-        android:inputType="numberDecimal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="226dp"
         android:background="#F8F8F8"
         android:ems="10"
         android:hint="@string/setPrice"
+        android:inputType="numberDecimal"
         android:padding="5dp" />
 </RelativeLayout>

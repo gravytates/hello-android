@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Food n Such</string>
     <string name="food_suggestions_for">Food suggestions for </string>
-    <string name="find_food_btn">Find Food</string>
+    <string name="find_food_btn">Add Food</string>
     <string name="edit_text_hint">Enter Noms</string>
     <string name="setPrice">$0.00</string>
 </resources>
