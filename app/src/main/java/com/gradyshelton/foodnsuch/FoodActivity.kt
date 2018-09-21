@@ -23,15 +23,15 @@ class FoodActivity : AppCompatActivity() {
         val addedIngredient: String = intent.getStringExtra(EXTRA_MESSAGE)
         Toast.makeText( this@FoodActivity, "$addedIngredient added", Toast.LENGTH_LONG).show()
 
-        val realmIngredients = realm.where<Ingredient>().findAllAsync()
+        val alphabetizedRealmIngredients = realm.where<Ingredient>().sort("name").findAllAsync()
         val ingredientArray: MutableList<String> = mutableListOf()
 
-        for (ingredient in realmIngredients) {
+        for (ingredient in alphabetizedRealmIngredients) {
             val name = ingredient.name.toString()
             val price = ingredient.price.toString()
             ingredientArray.add("$name: $$price")
         }
-        Log.d(TAG, "ingredientList: $realmIngredients")
+        Log.d(TAG, "ingredientList: $alphabetizedRealmIngredients")
 
         val adapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientArray)
         mIngredientListView.setAdapter(adapter)
