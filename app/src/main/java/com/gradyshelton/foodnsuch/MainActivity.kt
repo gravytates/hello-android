@@ -43,16 +43,21 @@ class MainActivity : AppCompatActivity() {
         val realm: Realm? = Realm.getDefaultInstance()
 
         for (i in starterIngredients) {
-            var id: Int? = realm?.where(Ingredient::class.java)?.max("id")?.toInt()
-            if (id != null) {
-                id++
+            var uId: Int? = realm?.where(Ingredient::class.java)?.max("id")?.toInt()
+            if (uId != null) {
+                uId++
             } else {
-                id = 1
+                uId = 1
             }
-            realm?.executeTransaction(){
-                val ingredient: Ingredient = realm.createObject(Ingredient::class.java, id)
-                ingredient.name = i
-                ingredient.price = 1.5
+
+            if (uId <= starterIngredients.size) {
+                realm?.executeTransaction { localRealm ->
+                    localRealm.copyToRealmOrUpdate(Ingredient().apply {
+                        id = uId
+                        name = i
+                        price = 1.5
+                    })
+                }
             }
         }
 
@@ -82,7 +87,7 @@ class MainActivity : AppCompatActivity() {
 
                 realm?.executeTransaction(){
                     val ingredient: Ingredient = realm.createObject(Ingredient::class.java, idA)
-                    ingredient.name = inputFood
+                    ingredient.name = inputFood.capitalize()
                     ingredient.price = price
                 }
             }
