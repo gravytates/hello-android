@@ -1,6 +1,5 @@
 package com.gradyshelton.foodnsuch
 
-import android.app.Application
 import android.content.Intent
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
@@ -11,14 +10,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.gradyshelton.foodnsuch.model.realm.Ingredient
-
 import io.realm.Realm
-import io.realm.RealmChangeListener
 import io.realm.RealmConfiguration
 import io.realm.RealmResults
-import io.realm.kotlin.where
-//import sun.misc.MessageUtils.where
-
 
 const val EXTRA_MESSAGE = "com.gradyshelton.foodnsuch.MESSAGE"
 
@@ -42,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         Realm.setDefaultConfiguration(realmConfig)
         val realm: Realm? = Realm.getDefaultInstance()
 
-        for (i in starterIngredients) {
+        for (ingredient in starterIngredients) {
             var uId: Int? = realm?.where(Ingredient::class.java)?.max("id")?.toInt()
             if (uId != null) {
                 uId++
@@ -54,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 realm?.executeTransaction { localRealm ->
                     localRealm.copyToRealmOrUpdate(Ingredient().apply {
                         id = uId
-                        name = i
+                        name = ingredient
                         price = 1.5
                     })
                 }
